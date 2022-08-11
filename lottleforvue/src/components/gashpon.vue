@@ -99,12 +99,7 @@
           <g
             ref="e0dj51prVt428_to"
             id="e0dj51prVt428_to"
-            style="
-              offset-path: path(
-                'M443.029083,628.903834L443.029083,628.903834C441.063368,788.295103,423.618762,983.513758,265.070958,1008.799545'
-              );
-              offset-rotate: 0deg;
-            "
+            style="offset-path: path('M443.029083,628.903834L443.029083,628.903834C441.063368,788.295103,423.618762,983.513758,265.070958,1008.799545'); offset-rotate: 0deg;"
           >
             <g
               ref="e0dj51prVt428_tr"
@@ -866,7 +861,8 @@ export default {
         for (let i = 0; i < dropGashaponId.length; i++) {
           this.$refs[dropGashaponId[i]].style.animationName = "";
         }
-        setTimeout(function () {
+        // const self =this;
+        setTimeout(() => {
           document.documentElement.style.setProperty("--play-number-drop", "0");
           document.documentElement.style.setProperty(
             "--play-state-drop",

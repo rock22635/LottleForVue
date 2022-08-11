@@ -1,13 +1,13 @@
 <template>
   <div id="app" ref="main">
-    <div class="playtimes">遊玩次數:0</div>
+    <div class="playtimes">遊玩次數:{{playtimes}}</div>
     <GashPon ref="gashpon"></GashPon>
     <div class="buttons">
       <div class="text">{{ Lottle }}</div>
       <div class="energy" ref="energy"></div>
     </div>
     <FunctionMenu></FunctionMenu>
-    <BoostrapModal @test="test"></BoostrapModal>
+    <BoostrapModal @test="test" @dialogconfirm= "dialogconfirm" :classes="showclass" :results='results'></BoostrapModal>
   </div>
 </template>
 
@@ -39,11 +39,35 @@ export default {
       isPlaying: false,
       mousestaste: false,
       modalstate: false,
-      playtimes: 0
+      playtimes: 0,
+      LottleArray:[],
+      showclass:'',
+      results:'',
     };
   },
-  mounted() {},
+  mounted() {this.init();},
   methods: {
+    init() {
+      this.LottleArray=[];
+      this.LottleArray.push('A賞');
+      this.LottleArray.push('A賞');
+      this.LottleArray.push('A賞');
+      this.LottleArray.push('B賞');
+      this.LottleArray.push('B賞');
+      this.LottleArray.push('B賞');
+      this.LottleArray.push('C賞');
+      this.LottleArray.push('C賞');
+      this.LottleArray.push('C賞');
+      this.LottleArray.push('D賞');
+      this.LottleArray.push('D賞');
+      this.LottleArray.push('D賞');
+
+    },
+    dialogconfirm() {
+      this.mousestaste = false;
+      this.modalstate = false;
+      this.showclass = '';
+    },
     mouseDown(e) {
       if (!this.mousestaste) {
         // 「變形」與「變形時間」重置
@@ -96,6 +120,9 @@ export default {
         }
       }
     },
+    getRandom(x) {
+      return Math.floor(Math.random() * x);
+    },
     mouseUp() {
       if (this.mousestaste) {
         if (mouseMove_Y <= 0 && mouseMove_Y < -100) {
@@ -123,9 +150,22 @@ export default {
           // playtimes++;
           this.playtimes++;
           this.modalstate = true;
-          // showModal();
+          setTimeout(()=>{
+            this.showModal();
+          },3000);
+          
         }
       }
+      this.mousestaste = false;
+      mouseMove_Y = 0;
+      console.log(this.mousestaste);
+    },
+    showModal() { 
+      this.showclass = 'L1';
+      var result = this.LottleArray[this.getRandom(this.LottleArray.length-1)];
+      this.results = result;
+      
+
     },
     test() {
       this.Lottle = "按住螢幕往下滑動";
@@ -156,7 +196,7 @@ export default {
     --play-number: 1;
     --play-number-drop: 1;
     --play-number-rotate: 1;
-    --play-state: running;
+    --play-state: paused;
     --play-state-drop: paused;
     --play-state-rotate: paused;
     --play-duration: 1800ms;

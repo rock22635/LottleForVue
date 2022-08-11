@@ -1,31 +1,65 @@
 <template>
-  <div class="modal fade" ref="modal" id="myModal">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">請問確定要抽獎嗎?</h5>
+  <div>
+    <div class="modal fade" ref="modal" id="myModal">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">請問確定要抽獎嗎?</h5>
+          </div>
+          <div class="modal-body-import">
+            <p>確定要抽獎嗎?</p>
+            <input
+              class="import-url"
+              type="text"
+              style="display: none"
+              value="https://docs.google.com/spreadsheets/d/e/2PACX-1vTpOQfCGnMmPhaDC9iZrrf9az33x1KX43bICyWKSaYSMOejOdXK5KYc0f3PAh6BGAsPq1bzUNClRZYQ/pub?output=csv"
+            />
+            <div class="warning-text">此欄位不可空白。</div>
+          </div>
+          <div class="modal-footer-x">
+            <button
+              class="btn modal-footer-btn import-btn"
+              type="button"
+              @click="confirm"
+            >
+              確認
+            </button>
+            <button
+              class="btn modal-footer-btn cancel-btn"
+              type="button"
+              data-bs-dismiss="modal"
+            >
+              取消
+            </button>
+          </div>
         </div>
-        <div class="modal-body-import">
-          <p>確定要抽獎嗎?</p>
-          <input
-            class="import-url"
-            type="text"
-            style="display: none"
-            value="https://docs.google.com/spreadsheets/d/e/2PACX-1vTpOQfCGnMmPhaDC9iZrrf9az33x1KX43bICyWKSaYSMOejOdXK5KYc0f3PAh6BGAsPq1bzUNClRZYQ/pub?output=csv"
-          />
-          <div class="warning-text">此欄位不可空白。</div>
-        </div>
-        <div class="modal-footer-x">
-          <button class="btn modal-footer-btn import-btn" type="button" @click="confirm">
-            確認
-          </button>
-          <button
-            class="btn modal-footer-btn cancel-btn"
-            type="button"
-            data-bs-dismiss="modal"
-          >
-            取消
-          </button>
+      </div>
+    </div>
+    <div class="modal fade" ref="two" >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">轉蛋結果?</h5>
+          </div>
+          <div class="modal-body-import">
+            <p>{{results}}</p>
+            <input
+              class="import-url"
+              type="text"
+              style="display: none"
+              value="https://docs.google.com/spreadsheets/d/e/2PACX-1vTpOQfCGnMmPhaDC9iZrrf9az33x1KX43bICyWKSaYSMOejOdXK5KYc0f3PAh6BGAsPq1bzUNClRZYQ/pub?output=csv"
+            />
+            <div class="warning-text">此欄位不可空白。</div>
+          </div>
+          <div class="modal-footer-x">
+            <button
+              class="btn modal-footer-btn import-btn"
+              type="button"
+              @click="Closed"
+            >
+              確認
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -35,14 +69,28 @@
 <script>
 import modal from "bootstrap/js/dist/modal";
 
+let firstmodel= "";
+let secondmodel= "";
+
 export default {
   name: "BoostrapModal",
+  props: {
+    classes: String,
+    results: String,
+  },
   data() {
     return {
       modal: null,
     };
   },
-
+  watch:{
+    classes(newval){
+      if (newval === 'L1') {
+        firstmodel.hide();
+        secondmodel.show();
+      }
+    }
+  },
   created() {
     // 在 created 的時候在 Vue 底下註冊監聽 alert:message 這個事件
     this.$bus.$on("alert:message", (msg) => {
@@ -51,20 +99,23 @@ export default {
     });
   },
   methods: {
+    Closed() {
+      secondmodel.hide();
+      this.$emit("dialogconfirm");
+    },
     showModal() {
-      this.modal.show();
+      firstmodel.show();
     },
     confirm() {
       this.$emit("test");
-      this.modal.hide();
+      firstmodel.hide();
     },
-    hideModal() {
-      
-    },
+    hideModal() {},
   },
   mounted() {
     console.log(this.$refs.modal);
-    this.modal = new modal(this.$refs.modal)
+    secondmodel= new modal(this.$refs.two);
+    firstmodel = new modal(this.$refs.modal);
   },
   beforeDestroy: function () {
     // 元件銷毀前要註銷監聽事件

@@ -35,14 +35,50 @@
         </div>
       </div>
     </div>
-    <div class="modal fade" ref="two" >
+    <div class="modal fade" ref="two">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">轉蛋結果?</h5>
           </div>
           <div class="modal-body-import">
-            <p>{{results}}</p>
+            <p>{{ results }}</p>
+            <input
+              class="import-url"
+              type="text"
+              style="display: none"
+              value="https://docs.google.com/spreadsheets/d/e/2PACX-1vTpOQfCGnMmPhaDC9iZrrf9az33x1KX43bICyWKSaYSMOejOdXK5KYc0f3PAh6BGAsPq1bzUNClRZYQ/pub?output=csv"
+            />
+            <div class="warning-text">此欄位不可空白。</div>
+          </div>
+          <div class="modal-footer-x">
+            <button
+              class="btn modal-footer-btn import-btn"
+              type="button"
+              @click="Closed"
+            >
+              確認
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" ref="third">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">遊戲紀錄</h5>
+          </div>
+          <div class="modal-body-import">
+            <div
+              class="column"
+              v-for="(item, index) in GameResult"
+              :key="index"
+            >
+              <div>{{index}}.</div>
+              <div>{{item}}</div>
+            </div>
+
             <input
               class="import-url"
               type="text"
@@ -69,27 +105,34 @@
 <script>
 import modal from "bootstrap/js/dist/modal";
 
-let firstmodel= "";
-let secondmodel= "";
+let firstmodel = "";
+let secondmodel = "";
+let thirdmodel = "";
 
 export default {
   name: "BoostrapModal",
   props: {
     classes: String,
     results: String,
+    GameResult: Array,
   },
   data() {
     return {
       modal: null,
     };
   },
-  watch:{
-    classes(newval){
-      if (newval === 'L1') {
+  watch: {
+    classes(newval) {
+      if (newval === "L1") {
         firstmodel.hide();
         secondmodel.show();
       }
-    }
+      else if (newval === "L2") {
+        firstmodel.hide();
+        secondmodel.hide();
+        thirdmodel.show();
+      }
+    },
   },
   created() {
     // 在 created 的時候在 Vue 底下註冊監聽 alert:message 這個事件
@@ -101,6 +144,7 @@ export default {
   methods: {
     Closed() {
       secondmodel.hide();
+      thirdmodel.hide();
       this.$emit("dialogconfirm");
     },
     showModal() {
@@ -114,8 +158,11 @@ export default {
   },
   mounted() {
     console.log(this.$refs.modal);
-    secondmodel= new modal(this.$refs.two);
+    secondmodel = new modal(this.$refs.two);
     firstmodel = new modal(this.$refs.modal);
+    thirdmodel = new modal(this.$refs.third);
+    console.log(thirdmodel);
+    // thirdmodel.show();
   },
   beforeDestroy: function () {
     // 元件銷毀前要註銷監聽事件
@@ -322,5 +369,19 @@ export default {
     padding: 20px;
     padding-bottom: 45px;
   }
+}
+
+.column {
+    font-family: FakePearl-Regular;
+    font-weight: 900;
+    width: 100%;
+    font-size: 2rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.column div{
+    padding: 5px;;
 }
 </style>

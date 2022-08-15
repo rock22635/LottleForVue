@@ -1,13 +1,20 @@
 <template>
   <div id="app" ref="main">
-    <div class="playtimes">遊玩次數:{{playtimes}}</div>
+    <div class="playtimes">遊玩次數:{{ playtimes }}</div>
+    <div class="recordbtn" @click="showclass = 'L2'">歷史紀錄</div>
     <GashPon ref="gashpon"></GashPon>
     <div class="buttons">
       <div class="text">{{ Lottle }}</div>
       <div class="energy" ref="energy"></div>
     </div>
     <FunctionMenu></FunctionMenu>
-    <BoostrapModal @test="test" @dialogconfirm= "dialogconfirm" :classes="showclass" :results='results'></BoostrapModal>
+    <BoostrapModal
+      @test="test"
+      @dialogconfirm="dialogconfirm"
+      :classes="showclass"
+      :results="results"
+      :GameResult = "GameResult"
+    ></BoostrapModal>
   </div>
 </template>
 
@@ -40,36 +47,41 @@ export default {
       mousestaste: false,
       modalstate: false,
       playtimes: 0,
-      LottleArray:[],
-      showclass:'',
-      results:'',
+      LottleArray: [],
+      showclass: "",
+      results: "",
+      GameResult: []
     };
   },
-  mounted() {this.init();},
+  mounted() {
+    this.init();
+  },
   methods: {
     init() {
-      this.LottleArray=[];
-      this.LottleArray.push('A賞');
-      this.LottleArray.push('A賞');
-      this.LottleArray.push('A賞');
-      this.LottleArray.push('B賞');
-      this.LottleArray.push('B賞');
-      this.LottleArray.push('B賞');
-      this.LottleArray.push('C賞');
-      this.LottleArray.push('C賞');
-      this.LottleArray.push('C賞');
-      this.LottleArray.push('D賞');
-      this.LottleArray.push('D賞');
-      this.LottleArray.push('D賞');
-
+      this.LottleArray = [];
+      this.LottleArray.push("A賞");
+      this.LottleArray.push("A賞");
+      this.LottleArray.push("A賞");
+      this.LottleArray.push("B賞");
+      this.LottleArray.push("B賞");
+      this.LottleArray.push("B賞");
+      this.LottleArray.push("C賞");
+      this.LottleArray.push("C賞");
+      this.LottleArray.push("C賞");
+      this.LottleArray.push("D賞");
+      this.LottleArray.push("D賞");
+      this.LottleArray.push("D賞");
     },
     dialogconfirm() {
       this.mousestaste = false;
       this.modalstate = false;
-      this.showclass = '';
+      this.showclass = "";
     },
     mouseDown(e) {
-      if (!this.mousestaste) {
+      // alert(123);
+      // eslint-disable-next-line
+      // debugger;
+      if (!this.modalState) {
         // 「變形」與「變形時間」重置
         this.gashaponScale("reset");
 
@@ -141,7 +153,7 @@ export default {
         }
 
         if (mouseMove_Y < -350 || mouseMove_Y > 350) {
-          // modalState = 1;
+          // this.modalState = true;
           this.gashaponAnimation("play");
           setTimeout(() => {
             this.gashaponAnimation("drop");
@@ -150,22 +162,21 @@ export default {
           // playtimes++;
           this.playtimes++;
           this.modalstate = true;
-          setTimeout(()=>{
+          setTimeout(() => {
             this.showModal();
-          },3000);
-          
+          }, 3000);
         }
       }
       this.mousestaste = false;
       mouseMove_Y = 0;
       console.log(this.mousestaste);
     },
-    showModal() { 
-      this.showclass = 'L1';
-      var result = this.LottleArray[this.getRandom(this.LottleArray.length-1)];
+    showModal() {
+      this.showclass = "L1";
+      var result =
+        this.LottleArray[this.getRandom(this.LottleArray.length - 1)];
       this.results = result;
-      
-
+      this.GameResult.push(result);
     },
     test() {
       this.Lottle = "按住螢幕往下滑動";
@@ -193,17 +204,16 @@ export default {
 }
 
 :root {
-    --play-number: 1;
-    --play-number-drop: 1;
-    --play-number-rotate: 1;
-    --play-state: paused;
-    --play-state-drop: paused;
-    --play-state-rotate: paused;
-    --play-duration: 1800ms;
-    --play-duration-drop: 3000ms;
-    --play-duration-rotate: 1800ms;
+  --play-number: 1;
+  --play-number-drop: 1;
+  --play-number-rotate: 1;
+  --play-state: paused;
+  --play-state-drop: paused;
+  --play-state-rotate: paused;
+  --play-duration: 1800ms;
+  --play-duration-drop: 3000ms;
+  --play-duration-rotate: 1800ms;
 }
-
 
 body {
   padding: 0;
@@ -211,11 +221,8 @@ body {
 }
 
 div {
-  border: 1px solid black;
+  /* border: 1px solid black; */
 }
-
-
-
 
 #app {
   width: 100%;
@@ -261,7 +268,6 @@ div {
   background: #633b4b;
   top: 0%;
   left: 0%;
-  border-radius: 50px;
   -webkit-transform: scaleX(0);
   transform: scaleX(0);
   z-index: -1;
@@ -270,6 +276,20 @@ div {
 
 .buttons .text {
   min-width: 200px;
+}
+
+.recordbtn {
+  position: absolute;
+  left: 50%;
+  top: 3%;
+  transform: translatex(-50%);
+  font-size: 1.3rem;
+  padding: 9px;
+  border-radius: 10%;
+  background: #8d5b5b;
+  color: white;
+  cursor: pointer;
+  z-index: 2;
 }
 
 @keyframes scales {

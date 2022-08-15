@@ -822,7 +822,7 @@ export default {
       if (x == "reduction") {
         this.$refs.main.style.transition = "1s";
         this.$refs.main.style.transform = "";
-        this.$refs.main.addClass("default-animation");
+        this.$refs.main.classList.value = `${this.$refs.main.classList.value} default-animation`;
       }
     },
     getRandom(x) {

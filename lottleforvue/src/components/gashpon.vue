@@ -881,7 +881,7 @@ export default {
 <style scoped>
 .gashapon {
   width: 100%;
-  height: 50%;
+  height: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

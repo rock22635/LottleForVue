@@ -75,7 +75,7 @@
               v-for="(item, index) in GameResult"
               :key="index"
             >
-              <div>{{index}}.</div>
+              <div>{{index+1}}.</div>
               <div>{{item}}</div>
             </div>
 

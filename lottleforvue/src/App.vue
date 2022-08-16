@@ -215,9 +215,13 @@ export default {
   --play-duration-rotate: 1800ms;
 }
 
-body {
-  padding: 0;
-  margin: 0;
+html, body {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    font-size: 10px;
 }
 
 div {
@@ -276,6 +280,7 @@ div {
 
 .buttons .text {
   min-width: 200px;
+  text-align: center;
 }
 
 .recordbtn {

@@ -23,7 +23,7 @@ export default {
 <style scoped>
 .function-menu {
   position: absolute;
-  top: 10%;
+  top: 3%;
   right: 3%;
 }
 

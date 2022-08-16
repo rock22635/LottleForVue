@@ -881,7 +881,7 @@ export default {
 <style scoped>
 .gashapon {
   width: 100%;
-  height: 100%;
+  height: 50%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -895,7 +895,7 @@ export default {
 }
 
 .gashapon svg {
-  height: 50%;
+  height: 40%;
 }
 
 .gashapon .gashapon-main.default-animation {

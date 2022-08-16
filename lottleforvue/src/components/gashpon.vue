@@ -893,7 +893,7 @@ export default {
   justify-content: center;
   position: relative;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-60%);
 }
 
 .gashapon svg {

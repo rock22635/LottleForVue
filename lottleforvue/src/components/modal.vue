@@ -154,7 +154,7 @@ export default {
       if (newval === "L1") {
         firstmodel.hide();
         secondmodel.show();
-        thirdmodel.show();
+        thirdmodel.hide();
         fourthmodel.hide();
       }
       else if (newval === "L2") {

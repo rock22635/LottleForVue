@@ -11,12 +11,22 @@
 
       <font-awesome-icon icon="fa-solid fa-info-circle" />
     </div>
+    <div class="btn btn-clear" @click="reset">
+      <p>重抽</p>
+      <font-awesome-icon icon="fa-solid fa-arrow-rotate-left"  />
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   name: "FunctionMenu",
+  methods:{
+    reset() {
+      this.$emit("reset","");
+      // this.$bus.$emit("reset", "");
+    }
+  }
 };
 </script>
 

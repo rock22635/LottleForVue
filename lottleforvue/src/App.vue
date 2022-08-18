@@ -7,10 +7,11 @@
       <div class="text">{{ Lottle }}</div>
       <div class="energy" ref="energy"></div>
     </div>
-    <FunctionMenu></FunctionMenu>
+    <FunctionMenu @reset="reset" ></FunctionMenu>
     <BoostrapModal
       @test="test"
       @dialogconfirm="dialogconfirm"
+      @resetlottle="init"
       :classes="showclass"
       :results="results"
       :GameResult = "GameResult"
@@ -50,27 +51,87 @@ export default {
       LottleArray: [],
       showclass: "",
       results: "",
-      GameResult: []
+      GameResult: [],
+      lottlearray: [
+        {
+          title: "A賞",
+          count: 3
+        },
+        {
+          title: "B賞",
+          count: 3
+        },
+        {
+          title: "C賞",
+          count: 3
+        },
+        {
+          title: "D賞",
+          count: 6
+        },
+        {
+          title: "E賞",
+          count: 6
+        },
+        {
+          title: "F賞",
+          count: 28
+        },
+        {
+          title: "G賞",
+          count: 31
+        },
+      ]
     };
   },
   mounted() {
     this.init();
   },
+  watch: {
+    LottleArray(val) {
+      if (val.length === 0) this.init();
+    }
+  },
   methods: {
+    reset() {
+      this.showclass="L3";
+    },
     init() {
       this.LottleArray = [];
-      this.LottleArray.push("A賞");
-      this.LottleArray.push("A賞");
-      this.LottleArray.push("A賞");
-      this.LottleArray.push("B賞");
-      this.LottleArray.push("B賞");
-      this.LottleArray.push("B賞");
-      this.LottleArray.push("C賞");
-      this.LottleArray.push("C賞");
-      this.LottleArray.push("C賞");
-      this.LottleArray.push("D賞");
-      this.LottleArray.push("D賞");
-      this.LottleArray.push("D賞");
+      this.lottlearray.forEach(item => {
+        for(let i = 0; i<= item.count-1;i++){
+          this.LottleArray.push(item.title);
+        }
+        
+      });
+      // this.LottleArray.push("A賞");
+      // this.LottleArray.push("A賞");
+      // this.LottleArray.push("A賞");
+      // this.LottleArray.push("B賞");
+      // this.LottleArray.push("B賞");
+      // this.LottleArray.push("B賞");
+      // this.LottleArray.push("C賞");
+      // this.LottleArray.push("C賞");
+      // this.LottleArray.push("C賞");
+      // this.LottleArray.push("D賞");
+      // this.LottleArray.push("D賞");
+      // this.LottleArray.push("D賞");
+      // this.LottleArray.push("E賞");
+      // this.LottleArray.push("E賞");
+      // this.LottleArray.push("E賞");
+      // this.LottleArray.push("E賞");
+      // this.LottleArray.push("E賞");
+      // this.LottleArray.push("F賞");
+      // this.LottleArray.push("F賞");
+      // this.LottleArray.push("F賞");
+      // this.LottleArray.push("G賞");
+      // this.LottleArray.push("G賞");
+      // this.LottleArray.push("G賞");
+      // this.LottleArray.push("H賞");
+      // this.LottleArray.push("H賞");
+      // this.LottleArray.push("H賞");
+      // this.LottleArray.push("H賞");
+      // this.LottleArray.push("H賞");
     },
     dialogconfirm() {
       this.mousestaste = false;
@@ -171,10 +232,13 @@ export default {
       mouseMove_Y = 0;
       console.log(this.mousestaste);
     },
+    
     showModal() {
       this.showclass = "L1";
+      const resultindex = this.getRandom(this.LottleArray.length - 1); 
       var result =
-        this.LottleArray[this.getRandom(this.LottleArray.length - 1)];
+        this.LottleArray[resultindex];
+        this.LottleArray.splice(resultindex,1);
       this.results = result;
       this.GameResult.push(result);
     },

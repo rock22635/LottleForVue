@@ -99,6 +99,33 @@
         </div>
       </div>
     </div>
+     <div class="modal fade" ref="fourth">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">確定要重設嗎?</h5>
+          </div>
+          <div class="modal-body-import">
+            <input
+              class="import-url"
+              type="text"
+              style="display: none"
+              value="https://docs.google.com/spreadsheets/d/e/2PACX-1vTpOQfCGnMmPhaDC9iZrrf9az33x1KX43bICyWKSaYSMOejOdXK5KYc0f3PAh6BGAsPq1bzUNClRZYQ/pub?output=csv"
+            />
+            <div class="warning-text">此欄位不可空白。</div>
+          </div>
+          <div class="modal-footer-x">
+            <button
+              class="btn modal-footer-btn import-btn"
+              type="button"
+              @click="resetlottle"
+            >
+              確認
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -108,6 +135,7 @@ import modal from "bootstrap/js/dist/modal";
 let firstmodel = "";
 let secondmodel = "";
 let thirdmodel = "";
+let fourthmodel = "";
 
 export default {
   name: "BoostrapModal",
@@ -126,12 +154,22 @@ export default {
       if (newval === "L1") {
         firstmodel.hide();
         secondmodel.show();
+        thirdmodel.show();
+        fourthmodel.hide();
       }
       else if (newval === "L2") {
         firstmodel.hide();
         secondmodel.hide();
         thirdmodel.show();
+        fourthmodel.hide();
       }
+      else if (newval === "L3") {
+        firstmodel.hide();
+        secondmodel.hide();
+        thirdmodel.hide();
+        fourthmodel.show();
+      }
+      
     },
   },
   created() {
@@ -140,12 +178,19 @@ export default {
       this.showModal();
       console.log(msg);
     });
+    this.$bus.$on("reset", (msg) => {
+      console.log(msg);
+    });
   },
   methods: {
     Closed() {
       secondmodel.hide();
       thirdmodel.hide();
       this.$emit("dialogconfirm");
+    },
+    resetlottle() {
+      fourthmodel.hide();
+      this.$emit("resetlottle","")
     },
     showModal() {
       firstmodel.show();
@@ -161,12 +206,14 @@ export default {
     secondmodel = new modal(this.$refs.two);
     firstmodel = new modal(this.$refs.modal);
     thirdmodel = new modal(this.$refs.third);
+    fourthmodel = new modal(this.$refs.fourth);
     console.log(thirdmodel);
     // thirdmodel.show();
   },
   beforeDestroy: function () {
     // 元件銷毀前要註銷監聽事件
     this.$bus.$off("alert:message");
+    this.$bus.$off("reset");
   },
 };
 </script>

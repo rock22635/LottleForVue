@@ -126,6 +126,42 @@
         </div>
       </div>
     </div>
+     <div class="modal fade" ref="list">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">獎項列表</h5>
+          </div>
+          <div class="modal-body-import">
+            <div
+              class="column"
+               v-for="(item, index) in lottlearray"
+              :key="index"
+            >
+              <div>{{item.title}}</div>
+              <div>{{item.item}}</div>
+            </div>
+
+            <input
+              class="import-url"
+              type="text"
+              style="display: none"
+              value="https://docs.google.com/spreadsheets/d/e/2PACX-1vTpOQfCGnMmPhaDC9iZrrf9az33x1KX43bICyWKSaYSMOejOdXK5KYc0f3PAh6BGAsPq1bzUNClRZYQ/pub?output=csv"
+            />
+            <div class="warning-text">此欄位不可空白。</div>
+          </div>
+          <div class="modal-footer-x">
+            <button
+              class="btn modal-footer-btn import-btn"
+              type="button"
+              @click="Closed"
+            >
+              確認
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -136,6 +172,7 @@ let firstmodel = "";
 let secondmodel = "";
 let thirdmodel = "";
 let fourthmodel = "";
+let listhmodel = "";
 
 export default {
   name: "BoostrapModal",
@@ -147,6 +184,36 @@ export default {
   data() {
     return {
       modal: null,
+      lottlearray: [
+        {
+          title: "A賞",
+          item: "角色模型"
+        },
+        {
+          title: "B賞",
+          item: "角色模型"
+        },
+        {
+          title: "C賞",
+          item: "掛軸"
+        },
+        {
+          title: "D賞",
+          item: "盤子(O)"
+        },
+        {
+          title: "E賞",
+          item: "迷你角色模型"
+        },
+        {
+          title: "F賞",
+          item: "迷你簽名板"
+        },
+        {
+          title: "G賞",
+          item: "軟塑膠吊飾"
+        },
+      ]
     };
   },
   watch: {
@@ -156,20 +223,29 @@ export default {
         secondmodel.show();
         thirdmodel.hide();
         fourthmodel.hide();
+        listhmodel.hide();
       }
       else if (newval === "L2") {
         firstmodel.hide();
         secondmodel.hide();
         thirdmodel.show();
         fourthmodel.hide();
+        listhmodel.hide();
       }
       else if (newval === "L3") {
         firstmodel.hide();
         secondmodel.hide();
         thirdmodel.hide();
         fourthmodel.show();
+        listhmodel.hide();
       }
-      
+      else if (newval === "L4") {
+        firstmodel.hide();
+        secondmodel.hide();
+        thirdmodel.hide();
+        fourthmodel.hide();
+        listhmodel.show();
+      }
     },
   },
   created() {
@@ -186,6 +262,7 @@ export default {
     Closed() {
       secondmodel.hide();
       thirdmodel.hide();
+      listhmodel.hide();
       this.$emit("dialogconfirm");
     },
     resetlottle() {
@@ -207,6 +284,7 @@ export default {
     firstmodel = new modal(this.$refs.modal);
     thirdmodel = new modal(this.$refs.third);
     fourthmodel = new modal(this.$refs.fourth);
+    listhmodel = new modal(this.$refs.list);
     console.log(thirdmodel);
     // thirdmodel.show();
   },

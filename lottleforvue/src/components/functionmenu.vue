@@ -15,6 +15,10 @@
       <p>重抽</p>
       <font-awesome-icon icon="fa-solid fa-arrow-rotate-left"  />
     </div>
+    <div class="btn btn-clear" @click="list">
+      <p>獎項</p>
+      <font-awesome-icon icon="fa-solid fa-dice" />
+    </div>
   </div>
 </template>
 
@@ -24,6 +28,10 @@ export default {
   methods:{
     reset() {
       this.$emit("reset","");
+      // this.$bus.$emit("reset", "");
+    },
+    list() {
+      this.$emit("list","");
       // this.$bus.$emit("reset", "");
     }
   }

@@ -7,7 +7,7 @@
       <div class="text">{{ Lottle }}</div>
       <div class="energy" ref="energy"></div>
     </div>
-    <FunctionMenu @reset="reset" ></FunctionMenu>
+    <FunctionMenu @reset="reset" @list="list" ></FunctionMenu>
     <BoostrapModal
       @test="test"
       @dialogconfirm="dialogconfirm"
@@ -95,6 +95,9 @@ export default {
   methods: {
     reset() {
       this.showclass="L3";
+    },
+    list() {
+      this.showclass="L4";
     },
     init() {
       this.LottleArray = [];

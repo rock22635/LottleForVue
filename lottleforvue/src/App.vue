@@ -7,15 +7,43 @@
       <div class="text">{{ Lottle }}</div>
       <div class="energy" ref="energy"></div>
     </div>
-    <FunctionMenu @reset="reset" @list="list" ></FunctionMenu>
+    <FunctionMenu @reset="reset" @list="list"></FunctionMenu>
     <BoostrapModal
       @test="test"
       @dialogconfirm="dialogconfirm"
       @resetlottle="init"
       :classes="showclass"
       :results="results"
-      :GameResult = "GameResult"
+      :GameResult="GameResult"
     ></BoostrapModal>
+    <div class="imgcontainer">
+      <div
+        class="img"
+        @click="slime"
+        :style="selected === 1 ? 'opacity:1' : 'opacity:0.6'"
+      >
+        子堯版扭蛋機
+        <div class="slime"></div>
+      </div>
+      <div
+        class="img"
+        @click="micky"
+        :style="selected === 2 ? 'opacity:1' : 'opacity:0.6'"
+      >
+        羽云版扭蛋機
+        <div class="micky"></div>
+      </div>
+      <div
+        class="img"
+        @click="nil"
+        :style="selected === 3 ? 'opacity:1' : 'opacity:0.6'"
+      >
+        Nil版扭蛋機
+        <div class="nil"></div>
+      </div>
+
+      <!-- <img src="./assets/01_bg.jpg" alt=""> -->
+    </div>
   </div>
 </template>
 
@@ -52,36 +80,147 @@ export default {
       showclass: "",
       results: "",
       GameResult: [],
+      selected: 0,
       lottlearray: [
         {
           title: "A賞",
-          count: 3
+          count: 3,
         },
         {
           title: "B賞",
-          count: 3
+          count: 3,
         },
         {
           title: "C賞",
-          count: 3
+          count: 3,
         },
         {
           title: "D賞",
-          count: 6
+          count: 6,
         },
         {
           title: "E賞",
-          count: 6
+          count: 6,
         },
         {
           title: "F賞",
-          count: 28
+          count: 28,
         },
         {
           title: "G賞",
-          count: 31
+          count: 31,
         },
-      ]
+      ],
+      smilearray: [
+        {
+          title: "A賞-惡魔史萊姆公仔",
+          count: 2,
+        },
+        {
+          title: "B賞-通行百萬公仔",
+          count: 2,
+        },
+        {
+          title: "C賞-天使史萊姆公仔",
+          count: 2,
+        },
+        {
+          title: "D賞-史萊姆掛軸",
+          count: 3,
+        },
+        {
+          title: "E賞-盤子恭喜你當盤子",
+          count: 6,
+        },
+        {
+          title: "F賞-Q版模型",
+          count: 6,
+        },
+        {
+          title: "G賞-Q版吊飾",
+          count: 28,
+        },
+        {
+          title: "H賞-簽名板",
+          count: 31,
+        },
+      ],
+      mickyarray: [
+        {
+          title: "A賞-佐野万次郎黏土人",
+          count: 2,
+        },
+        {
+          title: "B賞-花垣武道 絨毛娃娃",
+          count: 2,
+        },
+        {
+          title: "C賞-佐野万次郎 絨毛娃娃",
+          count: 2,
+        },
+        {
+          title: "D賞-龍宮寺堅 絨毛娃娃",
+          count: 2,
+        },
+        {
+          title: "E賞-松野千冬 絨毛娃娃",
+          count: 2,
+        },
+        {
+          title: "F賞-場地圭介 絨毛娃娃",
+          count: 2,
+        },
+        {
+          title: "G賞-三ツ谷隆 絨毛娃娃",
+          count: 2,
+        },
+        {
+          title: "H賞-長毛巾",
+          count: 24,
+        },
+        {
+          title: "I賞-壓克力立牌",
+          count: 18,
+        },
+        {
+          title: "J賞-吊飾",
+          count: 26,
+        },
+      ],
+      nilarray: [
+        {
+          title: "A賞-碇真嗣模型",
+          count: 1,
+        },
+        {
+          title: "B賞-凌波零模型",
+          count: 1,
+        },
+        {
+          title: "C賞-明日香模型",
+          count: 2,
+        },
+        {
+          title: "D賞-真希波模型",
+          count: 2,
+        },
+        {
+          title: "E賞-渚薰模型",
+          count: 2,
+        },
+        {
+          title: "F賞-卡片",
+          count: 16,
+        },
+        {
+          title: "G賞-杯墊",
+          count: 28,
+        },
+        {
+          title: "H賞-吊飾",
+          count: 28,
+        },
+      ],
     };
   },
   mounted() {
@@ -90,51 +229,61 @@ export default {
   watch: {
     LottleArray(val) {
       if (val.length === 0) this.init();
-    }
+    },
   },
   methods: {
+    slime() {
+      this.selected = 1;
+      let array = [];
+      this.smilearray.forEach((item) => {
+        for (let i = 0; i <= item.count - 1; i++) {
+          array.push(item.title);
+        }
+      });
+      this.LottleArray = array;
+      this.GameResult = [];
+      this.playtimes = 0;
+    },
+    micky() {
+      this.selected = 2;
+      let array = [];
+      this.mickyarray.forEach((item) => {
+        for (let i = 0; i <= item.count - 1; i++) {
+          array.push(item.title);
+        }
+      });
+      this.LottleArray = array;
+      this.GameResult = [];
+      this.playtimes = 0;
+    },
+    nil() {
+      // eslint-disable-next-line
+      debugger;
+      this.selected = 3;
+      let array = [];
+      this.nilarray.forEach((item) => {
+        for (let i = 0; i <= item.count - 1; i++) {
+          array.push(item.title);
+        }
+      });
+      console.log(array);
+      this.LottleArray = array;
+      this.GameResult = [];
+      this.playtimes = 0;
+    },
     reset() {
-      this.showclass="L3";
+      this.showclass = "L3";
     },
     list() {
-      this.showclass="L4";
+      this.showclass = "L4";
     },
     init() {
       this.LottleArray = [];
-      this.lottlearray.forEach(item => {
-        for(let i = 0; i<= item.count-1;i++){
+      this.lottlearray.forEach((item) => {
+        for (let i = 0; i <= item.count - 1; i++) {
           this.LottleArray.push(item.title);
         }
-        
       });
-      // this.LottleArray.push("A賞");
-      // this.LottleArray.push("A賞");
-      // this.LottleArray.push("A賞");
-      // this.LottleArray.push("B賞");
-      // this.LottleArray.push("B賞");
-      // this.LottleArray.push("B賞");
-      // this.LottleArray.push("C賞");
-      // this.LottleArray.push("C賞");
-      // this.LottleArray.push("C賞");
-      // this.LottleArray.push("D賞");
-      // this.LottleArray.push("D賞");
-      // this.LottleArray.push("D賞");
-      // this.LottleArray.push("E賞");
-      // this.LottleArray.push("E賞");
-      // this.LottleArray.push("E賞");
-      // this.LottleArray.push("E賞");
-      // this.LottleArray.push("E賞");
-      // this.LottleArray.push("F賞");
-      // this.LottleArray.push("F賞");
-      // this.LottleArray.push("F賞");
-      // this.LottleArray.push("G賞");
-      // this.LottleArray.push("G賞");
-      // this.LottleArray.push("G賞");
-      // this.LottleArray.push("H賞");
-      // this.LottleArray.push("H賞");
-      // this.LottleArray.push("H賞");
-      // this.LottleArray.push("H賞");
-      // this.LottleArray.push("H賞");
     },
     dialogconfirm() {
       this.mousestaste = false;
@@ -235,13 +384,12 @@ export default {
       mouseMove_Y = 0;
       console.log(this.mousestaste);
     },
-    
+
     showModal() {
       this.showclass = "L1";
-      const resultindex = this.getRandom(this.LottleArray.length - 1); 
-      var result =
-        this.LottleArray[resultindex];
-        this.LottleArray.splice(resultindex,1);
+      const resultindex = this.getRandom(this.LottleArray.length - 1);
+      var result = this.LottleArray[resultindex];
+      this.LottleArray.splice(resultindex, 1);
       this.results = result;
       this.GameResult.push(result);
     },
@@ -282,13 +430,14 @@ export default {
   --play-duration-rotate: 1800ms;
 }
 
-html, body {
-    width: 100%;
-    height: 100%;
-    padding: 0;
-    margin: 0;
-    overflow: hidden;
-    font-size: 10px;
+html,
+body {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  font-size: 10px;
 }
 
 div {
@@ -362,6 +511,44 @@ div {
   color: white;
   cursor: pointer;
   z-index: 2;
+}
+
+.imgcontainer {
+  position: absolute;
+  top: 3%;
+  left: 6%;
+  text-align: center;
+  font-size: 20px;
+}
+.img {
+  opacity: 0.6;
+  cursor: pointer;
+}
+.slime {
+  background-image: url("@/assets/slime.jpg");
+  height: 142px;
+  width: 133px;
+  background-position: center;
+  background-size: cover;
+  border-radius: 23px;
+}
+
+.micky {
+  background-image: url("@/assets/micky.png");
+  height: 142px;
+  width: 133px;
+  background-position: center;
+  background-size: cover;
+  border-radius: 23px;
+}
+
+.nil {
+  background-image: url("@/assets/02.png");
+  height: 142px;
+  width: 133px;
+  background-position: center;
+  background-size: cover;
+  border-radius: 23px;
 }
 
 @keyframes scales {

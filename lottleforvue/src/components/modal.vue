@@ -135,11 +135,11 @@
           <div class="modal-body-import">
             <div
               class="column"
-               v-for="(item, index) in lottlearray"
+               v-for="(item, index) in resultarray"
               :key="index"
             >
-              <div>{{item.title}}</div>
-              <div>{{item.item}}</div>
+              <div>{{item}}</div>
+              <!-- <div>{{item.item}}</div> -->
             </div>
 
             <input
@@ -180,6 +180,7 @@ export default {
     classes: String,
     results: String,
     GameResult: Array,
+    resultarray: Array
   },
   data() {
     return {

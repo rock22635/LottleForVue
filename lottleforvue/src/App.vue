@@ -15,6 +15,7 @@
       :classes="showclass"
       :results="results"
       :GameResult="GameResult"
+      :resultarray="resultarray"
     ></BoostrapModal>
     <div class="imgcontainer">
       <div
@@ -147,43 +148,39 @@ export default {
       ],
       mickyarray: [
         {
-          title: "A賞-佐野万次郎黏土人",
+          title: "A賞-花垣武道 絨毛娃娃",
           count: 2,
         },
         {
-          title: "B賞-花垣武道 絨毛娃娃",
+          title: "B賞-佐野万次郎 絨毛娃娃",
           count: 2,
         },
         {
-          title: "C賞-佐野万次郎 絨毛娃娃",
+          title: "C賞-龍宮寺堅 絨毛娃娃",
           count: 2,
         },
         {
-          title: "D賞-龍宮寺堅 絨毛娃娃",
+          title: "D賞-松野千冬 絨毛娃娃",
           count: 2,
         },
         {
-          title: "E賞-松野千冬 絨毛娃娃",
+          title: "E賞-場地圭介 絨毛娃娃",
           count: 2,
         },
         {
-          title: "F賞-場地圭介 絨毛娃娃",
+          title: "F賞-三ツ谷隆 絨毛娃娃",
           count: 2,
         },
         {
-          title: "G賞-三ツ谷隆 絨毛娃娃",
-          count: 2,
-        },
-        {
-          title: "H賞-長毛巾",
+          title: "G賞-長毛巾",
           count: 24,
         },
         {
-          title: "I賞-壓克力立牌",
+          title: "H賞-壓克力立牌",
           count: 18,
         },
         {
-          title: "J賞-吊飾",
+          title: "I賞-吊飾",
           count: 26,
         },
       ],
@@ -221,6 +218,15 @@ export default {
           count: 28,
         },
       ],
+      resultarray:[
+        "A賞-角色模型",
+        "B賞-角色模型",
+        "C賞-掛軸",
+        "D賞-盤子(O)",
+        "E賞-迷你角色模型",
+        "F賞-迷你簽名板",
+        "G賞-軟塑膠吊飾",
+      ]
     };
   },
   mounted() {
@@ -235,11 +241,14 @@ export default {
     slime() {
       this.selected = 1;
       let array = [];
+      let lottlearray=[];
       this.smilearray.forEach((item) => {
+        lottlearray.push(item.title);
         for (let i = 0; i <= item.count - 1; i++) {
           array.push(item.title);
         }
       });
+      this.resultarray = lottlearray;
       this.LottleArray = array;
       this.GameResult = [];
       this.playtimes = 0;
@@ -247,26 +256,29 @@ export default {
     micky() {
       this.selected = 2;
       let array = [];
+      let lottlearray=[];
       this.mickyarray.forEach((item) => {
+        lottlearray.push(item.title);
         for (let i = 0; i <= item.count - 1; i++) {
           array.push(item.title);
         }
       });
+      this.resultarray = lottlearray;
       this.LottleArray = array;
       this.GameResult = [];
       this.playtimes = 0;
     },
     nil() {
-      // eslint-disable-next-line
-      debugger;
       this.selected = 3;
       let array = [];
+      let lottlearray=[];
       this.nilarray.forEach((item) => {
+        lottlearray.push(item.title);
         for (let i = 0; i <= item.count - 1; i++) {
           array.push(item.title);
         }
       });
-      console.log(array);
+      this.resultarray = lottlearray;
       this.LottleArray = array;
       this.GameResult = [];
       this.playtimes = 0;

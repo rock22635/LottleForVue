@@ -99,7 +99,7 @@ export default {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
-  padding: 20px;
+  padding: 5px;
   position: absolute;
   top: 0;
   right: 0;
@@ -142,7 +142,7 @@ export default {
   align-items: center;
   margin: 10px;
   transition: 0.5s;
-  padding: 29px;
+  padding: 29px 0;
 }
 
 .function-menu .menu-box .btn p {

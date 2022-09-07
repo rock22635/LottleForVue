@@ -67,16 +67,21 @@
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">遊戲紀錄</h5>
+            <h5 class="modal-title">中獎紀錄</h5>
           </div>
           <div class="modal-body-import">
             <div
               class="column"
-              v-for="(item, index) in GameResult"
+              style="border-bottom: 3px solid black"
+              v-for="(item, index) in Gamelottle"
               :key="index"
             >
-              <div>{{index+1}}.</div>
-              <div>{{item}}</div>
+              <div class="col-6" style="align-items: center; display: flex;">{{item.title}}</div>
+              <div class="col-6" style="display:flex; flex-wrap: wrap;" >
+                <div  v-for="(x,y) in item.count" :key="y" class="bomb" :class="[item.bets > y  ? 'bets' : '']">
+                  <font-awesome-icon icon="fa-solid fa-burst"/>
+                </div>
+              </div>
             </div>
 
             <input
@@ -135,10 +140,10 @@
           <div class="modal-body-import">
             <div
               class="column"
-               v-for="(item, index) in resultarray"
+               v-for="(item, index) in Games"
               :key="index"
             >
-              <div>{{item}}</div>
+              <div>{{item.title}}</div>
               <!-- <div>{{item.item}}</div> -->
             </div>
 
@@ -167,6 +172,8 @@
 
 <script>
 import modal from "bootstrap/js/dist/modal";
+import cloneDeep from"lodash/cloneDeep"
+
 
 let firstmodel = "";
 let secondmodel = "";
@@ -180,7 +187,8 @@ export default {
     classes: String,
     results: String,
     GameResult: Array,
-    resultarray: Array
+    resultarray: Array,
+    Rowarray: Array
   },
   data() {
     return {
@@ -214,7 +222,8 @@ export default {
           title: "G賞",
           item: "軟塑膠吊飾"
         },
-      ]
+      ],
+      Games:[]
     };
   },
   watch: {
@@ -248,6 +257,9 @@ export default {
         listhmodel.show();
       }
     },
+    Rowarray(newval){
+      this.Games = cloneDeep(newval);
+    }
   },
   created() {
     // 在 created 的時候在 Vue 底下註冊監聽 alert:message 這個事件
@@ -260,6 +272,11 @@ export default {
     });
   },
   methods: {
+    init() {
+      this.Games.forEach((item) =>{
+        item.bets = 0;
+      });
+    },
     Closed() {
       secondmodel.hide();
       thirdmodel.hide();
@@ -279,7 +296,19 @@ export default {
     },
     hideModal() {},
   },
+  computed: {
+    Gamelottle() {
+      this.Games.forEach((item) =>{
+        item.bets = 0;
+        this.GameResult.forEach((gitem) => {
+          if(gitem === item.title) {item.bets= item.bets+1}
+        });
+      });
+      return this.Games;
+    }
+  },
   mounted() {
+    this.Games = cloneDeep(this.Rowarray);
     console.log(this.$refs.modal);
     secondmodel = new modal(this.$refs.two);
     firstmodel = new modal(this.$refs.modal);
@@ -510,4 +539,12 @@ export default {
 .column div{
     padding: 5px;;
 }
+
+.bomb{
+  opacity: 0.5;
+}
+.bets{
+  opacity: 1;
+}
+
 </style>

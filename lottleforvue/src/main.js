@@ -9,13 +9,14 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 /* import specific icons */
-import { faAngleDown,faInfoCircle,faArrowRotateLeft,faDice } from '@fortawesome/free-solid-svg-icons'
+import { faAngleDown,faInfoCircle,faArrowRotateLeft,faDice,faBurst } from '@fortawesome/free-solid-svg-icons'
 
 /* add icons to the library */
 library.add(faAngleDown)
 library.add(faInfoCircle)
 library.add(faArrowRotateLeft)
 library.add(faDice)
+library.add(faBurst);
 /* add font awesome icon component */
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 

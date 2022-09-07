@@ -9,6 +9,7 @@
     </div>
     <FunctionMenu @reset="reset" @list="list"></FunctionMenu>
     <BoostrapModal
+      ref="modal"
       @test="test"
       @dialogconfirm="dialogconfirm"
       @resetlottle="init"
@@ -16,6 +17,7 @@
       :results="results"
       :GameResult="GameResult"
       :resultarray="resultarray"
+      :Rowarray="lottlearray"
     ></BoostrapModal>
     <div class="imgcontainer">
       <div
@@ -85,11 +87,11 @@ export default {
       lottlearray: [
         {
           title: "A賞",
-          count: 3,
+          count: 2,
         },
         {
           title: "B賞",
-          count: 3,
+          count: 2,
         },
         {
           title: "C賞",
@@ -97,7 +99,7 @@ export default {
         },
         {
           title: "D賞",
-          count: 6,
+          count: 4,
         },
         {
           title: "E賞",
@@ -105,17 +107,17 @@ export default {
         },
         {
           title: "F賞",
-          count: 28,
+          count: 7,
         },
         {
           title: "G賞",
-          count: 31,
+          count: 8,
         },
       ],
       smilearray: [
         {
           title: "A賞-惡魔史萊姆公仔",
-          count: 2,
+          count: 2
         },
         {
           title: "B賞-通行百萬公仔",
@@ -131,24 +133,24 @@ export default {
         },
         {
           title: "E賞-盤子恭喜你當盤子",
-          count: 6,
+          count: 4,
         },
         {
           title: "F賞-Q版模型",
-          count: 6,
+          count: 5,
         },
         {
           title: "G賞-Q版吊飾",
-          count: 28,
+          count: 6,
         },
         {
           title: "H賞-簽名板",
-          count: 31,
+          count: 7,
         },
       ],
       mickyarray: [
         {
-          title: "A賞-花垣武道 絨毛娃娃",
+          title: "A賞-場地圭介 絨毛娃娃",
           count: 2,
         },
         {
@@ -164,7 +166,7 @@ export default {
           count: 2,
         },
         {
-          title: "E賞-場地圭介 絨毛娃娃",
+          title: "E賞-花垣武道 絨毛娃娃",
           count: 2,
         },
         {
@@ -173,25 +175,25 @@ export default {
         },
         {
           title: "G賞-長毛巾",
-          count: 24,
+          count: 4,
         },
         {
           title: "H賞-壓克力立牌",
-          count: 18,
+          count: 6,
         },
         {
           title: "I賞-吊飾",
-          count: 26,
+          count: 6,
         },
       ],
       nilarray: [
         {
           title: "A賞-碇真嗣模型",
-          count: 1,
+          count: 2,
         },
         {
           title: "B賞-凌波零模型",
-          count: 1,
+          count: 2,
         },
         {
           title: "C賞-明日香模型",
@@ -207,15 +209,15 @@ export default {
         },
         {
           title: "F賞-卡片",
-          count: 16,
+          count: 4,
         },
         {
           title: "G賞-杯墊",
-          count: 28,
+          count: 6,
         },
         {
           title: "H賞-吊飾",
-          count: 28,
+          count: 8,
         },
       ],
       resultarray:[
@@ -248,6 +250,7 @@ export default {
           array.push(item.title);
         }
       });
+      this.lottlearray = this.smilearray;
       this.resultarray = lottlearray;
       this.LottleArray = array;
       this.GameResult = [];
@@ -263,6 +266,7 @@ export default {
           array.push(item.title);
         }
       });
+      this.lottlearray = this.mickyarray;
       this.resultarray = lottlearray;
       this.LottleArray = array;
       this.GameResult = [];
@@ -278,6 +282,7 @@ export default {
           array.push(item.title);
         }
       });
+      this.lottlearray = this.nilarray;
       this.resultarray = lottlearray;
       this.LottleArray = array;
       this.GameResult = [];
@@ -290,6 +295,8 @@ export default {
       this.showclass = "L4";
     },
     init() {
+      this.GameResult = [];
+      this.playtimes = 0;
       this.LottleArray = [];
       this.lottlearray.forEach((item) => {
         for (let i = 0; i <= item.count - 1; i++) {
@@ -303,6 +310,7 @@ export default {
       this.showclass = "";
     },
     mouseDown(e) {
+      this.dialogconfirm();
       // alert(123);
       // eslint-disable-next-line
       // debugger;

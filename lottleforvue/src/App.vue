@@ -1,7 +1,8 @@
 <template>
+  
   <div id="app" ref="main">
     <div class="playtimes">遊玩次數:{{ playtimes }}</div>
-    <div class="recordbtn" @click="showclass = 'L2'">歷史紀錄</div>
+    <div class="recordbtn" @click="showclass = 'L2'">獎項紀錄</div>
     <GashPon ref="gashpon"></GashPon>
     <div class="buttons">
       <div class="text">{{ Lottle }}</div>
@@ -19,7 +20,8 @@
       :resultarray="resultarray"
       :Rowarray="lottlearray"
     ></BoostrapModal>
-    <div class="imgcontainer">
+    <image-list @slime="slime" @micky="micky" @nil="nil" :selected="selected"/>
+    <!-- <div class="imgcontainer">
       <div
         class="img"
         @click="slime"
@@ -44,9 +46,7 @@
         Nil版扭蛋機
         <div class="nil"></div>
       </div>
-
-      <!-- <img src="./assets/01_bg.jpg" alt=""> -->
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -54,6 +54,7 @@
 import GashPon from "@/components/gashpon.vue";
 import FunctionMenu from "@/components/functionmenu.vue";
 import BoostrapModal from "@/components/modal.vue";
+import imageList from "@/components/image-list.vue"
 
 // 滑鼠點擊位置
 let mouseClick_Y = 0;
@@ -71,6 +72,7 @@ export default {
     GashPon,
     FunctionMenu,
     BoostrapModal,
+    imageList,
   },
   data() {
     return {
@@ -533,43 +535,7 @@ div {
   z-index: 2;
 }
 
-.imgcontainer {
-  position: absolute;
-  top: 3%;
-  left: 6%;
-  text-align: center;
-  font-size: 20px;
-}
-.img {
-  opacity: 0.6;
-  cursor: pointer;
-}
-.slime {
-  background-image: url("@/assets/slime.jpg");
-  height: 142px;
-  width: 133px;
-  background-position: center;
-  background-size: cover;
-  border-radius: 23px;
-}
 
-.micky {
-  background-image: url("@/assets/micky.png");
-  height: 142px;
-  width: 133px;
-  background-position: center;
-  background-size: cover;
-  border-radius: 23px;
-}
-
-.nil {
-  background-image: url("@/assets/02.png");
-  height: 142px;
-  width: 133px;
-  background-position: center;
-  background-size: cover;
-  border-radius: 23px;
-}
 
 @keyframes scales {
   0% {

@@ -496,6 +496,19 @@ div {
   background-size: 20px 20px;
   -webkit-animation: scales 100s infinite linear;
   -webkit-animation-animation: scales 100s infinite linear;
+  /* background: url('@/assets/Maple0160.jpg'); */
+}
+#app::before {
+  content: '';
+  background: url('@/assets/HBD.png');
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  opacity: 0.3;
+  background-position: 50%;
+  background-repeat: no-repeat ;
+  background-size: cover;
 }
 
 .playtimes {

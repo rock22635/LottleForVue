@@ -1,6 +1,6 @@
 <template>
   
-  <div id="app" ref="main">
+  <div id="app" ref="main" @click.once="play">
     <div class="playtimes">遊玩次數:{{ playtimes }}</div>
     <div class="recordbtn" @click="showclass = 'L2'">獎項紀錄</div>
     <GashPon ref="gashpon"></GashPon>
@@ -21,6 +21,7 @@
       :Rowarray="lottlearray"
     ></BoostrapModal>
     <image-list @slime="slime" @micky="micky" @nil="nil" :selected="selected"/>
+    <audio id="audiobackmusic" preload="metadata" loop ref="audio"></audio>
     <!-- <div class="imgcontainer">
       <div
         class="img"
@@ -54,7 +55,8 @@
 import GashPon from "@/components/gashpon.vue";
 import FunctionMenu from "@/components/functionmenu.vue";
 import BoostrapModal from "@/components/modal.vue";
-import imageList from "@/components/image-list.vue"
+import imageList from "@/components/image-list.vue";
+import backmusic from "@/assets/audio/backmusic.mp3";
 
 // 滑鼠點擊位置
 let mouseClick_Y = 0;
@@ -427,6 +429,14 @@ export default {
       this.$refs.main.addEventListener("mouseleave", this.mouseUp);
       this.$refs.main.addEventListener("touchend", this.mouseUp);
     },
+    play() {
+      if (!this.$refs.audio.src) {
+        this.$refs.audio.src = backmusic;
+        this.$refs.audio.volume = 0.7;
+      }
+      this.$refs.audio.play();
+    },
+
   },
 };
 </script>

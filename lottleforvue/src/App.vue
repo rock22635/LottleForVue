@@ -57,6 +57,7 @@ import FunctionMenu from "@/components/functionmenu.vue";
 import BoostrapModal from "@/components/modal.vue";
 import imageList from "@/components/image-list.vue";
 import backmusic from "@/assets/audio/backmusic.mp3";
+import { Howl } from 'howler';
 
 // 滑鼠點擊位置
 let mouseClick_Y = 0;
@@ -415,6 +416,7 @@ export default {
       var result = this.LottleArray[resultindex];
       this.LottleArray.splice(resultindex, 1);
       this.results = result;
+      this.playEffect(result[0]);
       this.GameResult.push(result);
     },
     test() {
@@ -428,6 +430,16 @@ export default {
       this.$refs.main.addEventListener("mouseup", this.mouseUp);
       this.$refs.main.addEventListener("mouseleave", this.mouseUp);
       this.$refs.main.addEventListener("touchend", this.mouseUp);
+    },
+
+    async playEffect(code) {
+      let myModule = await import(`@/assets/audio/${code}.mp3`);
+      const song = myModule.default 
+      const sound = new Howl({
+        src: song,
+        volume: 1,
+      });
+      sound.play();
     },
     play() {
       if (!this.$refs.audio.src) {
